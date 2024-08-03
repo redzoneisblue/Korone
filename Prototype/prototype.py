@@ -5,7 +5,21 @@ def inrt(a):
     with open("Storage.txt","a+") as fh:
         b = "\n"+a
         fh.write(b)
-    
+        fh.close()
+
+#Function to remove an anime from the list
+def rev(a):
+    with open("Storage.txt", "r") as fh:
+        words = fh.read()
+        anlist = words.split('\n')
+        for anime in anlist:
+            if anime == a:
+                anlist.remove(anime)
+    with open("Storage.txt", "w") as fh:
+        for anime in anlist:
+            fh.write(anime+"\n")
+        
+
 #Function to show anime names in the list
 def sl():
     global namelist
@@ -21,6 +35,7 @@ print("Welcome to Korone. Here, Korone will decide an anime for you to watch so 
 with open("Storage.txt", "r") as fh:
     f = fh.readlines()
     namelist = f
+    fh.close()
 
 #To show your current wishlist 
 if len(namelist) == 0:
@@ -31,18 +46,27 @@ else:
 
 
 print("\n \nPlease enter an input as specified below :")
-print("     enter I to insert a new anime in the list \n", "    enter R to remove an anime from the list \n", "    enter N to skip this part")
-x = input()
+x = input("    enter I to insert a new anime in the list \n"+ "    enter R to remove an anime from the list \n"+ "    enter anything to skip this part\n   --> ")
 
-#To insert an anime in the list and show updated list
-if x == "i" or "I":
+
+#To insert or remove an anime in the list
+if x == "i" or x == "I":
     a = input("Enter anime name : ")
-    inrt(a)
-    with open("Storage.txt") as fh:
-        f = fh.readlines()
-        namelist = f
+    inrt()
+elif x == "r" or x == "R":
+    a = input("Enter anime name : ")
+    rev(a)
+else:
+    pass
+
+#To show the updated list
+with open("Storage.txt", "r") as fh:
+    f = fh.readlines()
+    namelist = f
     print("The updated list is as follows : \n")
     sl()
+    fh.close()
+
 
 print("\n \nKorone chooses the following anime for you to watch :")
 randomizer = 0
