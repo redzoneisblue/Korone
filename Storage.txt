@@ -1,1 +1,7 @@
-["Naruto", "Bleach", "Dragon Ball Z", "One Piece"]
+Naruto
+One Piece
+Bleach
+Fairy Tale
+Banana Fish
+Boruto
+Tokyo Ghoul
