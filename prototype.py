@@ -30,8 +30,8 @@ else:
     sl()
 
 
-print("Please enter an input as specified below :")
-print("    enter I to insert a new anime in the list \n", "    enter R to remove an anime from the list \n", "    enter N to skip this part")
+print("\n \nPlease enter an input as specified below :")
+print("     enter I to insert a new anime in the list \n", "    enter R to remove an anime from the list \n", "    enter N to skip this part")
 x = input()
 
 #To insert an anime in the list and show updated list
@@ -41,11 +41,11 @@ if x == "i" or "I":
     with open("Storage.txt") as fh:
         f = fh.readlines()
         namelist = f
-    print("The updated list is as follows :")
+    print("The updated list is as follows : \n")
     sl()
 
-print("Korone chooses the following anime for you to watch :")
+print("\n \nKorone chooses the following anime for you to watch :")
 randomizer = 0
 
 randomizer = random.randint(0,len(namelist)-1)
-print(namelist[randomizer])
+print("\n    ",namelist[randomizer])
