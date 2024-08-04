@@ -1,7 +1,11 @@
 import random
+import tkinter
+import customtkinter
+
 
 #Funtion to insert a new anime in the list
 def inrt(a):
+    a = str(a)
     with open("Storage.txt","a+") as fh:
         b = "\n"+a
         fh.write(b)
@@ -29,8 +33,6 @@ def sl():
         print(i,")",anime)
 
 
-print("Welcome to Korone. Here, Korone will decide an anime for you to watch so you don't have to go through the emotional turmoil of trying to decide what to watch")
-
 #To read the wishlist 
 with open("Storage.txt", "r") as fh:
     f = fh.readlines()
@@ -38,38 +40,62 @@ with open("Storage.txt", "r") as fh:
     fh.close()
 
 #To show your current wishlist 
-if len(namelist) == 0:
-    print("Your wishlist is empty.")
-else:
-    print("Your current wishlist :")
-    sl()
+def crulist():
+    if len(namelist) == 0:
+        print("Your wishlist is empty.")
+    else:
+        print("Your current wishlist :")
+        sl()
 
 
-print("\n \nPlease enter an input as specified below :")
-x = input("    enter I to insert a new anime in the list \n"+ "    enter R to remove an anime from the list \n"+ "    enter anything to skip this part\n   --> ")
+
+def randeer():
+    randomizer = 0
+    randomizer = random.randint(0,len(namelist)-1)
+    print("\n    ",namelist[randomizer])
 
 
-#To insert or remove an anime in the list
-if x == "i" or x == "I":
-    a = input("Enter anime name : ")
-    inrt()
-elif x == "r" or x == "R":
-    a = input("Enter anime name : ")
-    rev(a)
-else:
-    pass
+#GUI----------------------------------------------------------------------------------------------------------------------------------------
+#System Settings
+customtkinter.set_appearance_mode("System")
+customtkinter.set_default_color_theme("blue")
 
-#To show the updated list
-with open("Storage.txt", "r") as fh:
-    f = fh.readlines()
-    namelist = f
-    print("The updated list is as follows : \n")
-    sl()
-    fh.close()
+#App frame
+app = customtkinter.CTk()
+app.geometry("720x480")
+app.title("Korone")
+
+#App elements
+#welcome note:
+welcome = customtkinter.CTkLabel(app, text="Welcome to Korone. Here, Korone will decide an anime for you to watch so you don't have to go through the emotional turmoil of trying to decide what to watch")
+welcome.pack(padx=20, pady=20)
+
+#text space to enter anime name:
+animename = tkinter.StringVar()
+name = customtkinter.CTkEntry(app, width=350, height=40, textvariable=animename)
+name.pack()
+
+#button add a new anime in the list
+adder = customtkinter.CTkButton(app, text="Add", command=inrt(name))
+adder.pack(padx=20,pady=20)
+
+#button to remove an anime from the lsit
+remover = customtkinter.CTkButton(app, text="Remove", command=rev(name))
+remover.pack(pax=20,pady=-20)
+
+#to show list
+Wishlist = customtkinter.CTkButton(app, text="Current wishlist", command=crulist)
+Wishlist.pack(padx=20,pady=20)
 
 
-print("\n \nKorone chooses the following anime for you to watch :")
-randomizer = 0
+#button to chose random anime from the list
+Korone = customtkinter.CTkButton(app, text="Korone", command=randeer)
 
-randomizer = random.randint(0,len(namelist)-1)
-print("\n    ",namelist[randomizer])
+
+#label to show anime name
+status = customtkinter.CTkLabel(app, text="")
+status.pack(padx=20,pady=20)
+
+
+#to run the app
+app.mainloop()
